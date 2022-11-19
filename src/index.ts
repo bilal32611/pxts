@@ -14,15 +14,14 @@ bcDb.y.set(100);
 bcDb.width.set(400);
 bcDb.height.set(200);
 bcDb.color = 0x932c2c;
+bcDb.x.animate(0,10,0,50);
 
 const bc = new BaseComp(bcDb);
 
 console.log("bc",bc);
 
 const engine = new Engine();
-engine.addComp(bc.getComp());
+engine.addComp(bc);
 
-//////---the Game loop is not just update with no draw--infect 
-engine.app.theApp.ticker.add( ()=>{
-    bc.draw(0);
-});
+
+engine.start();

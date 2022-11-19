@@ -1,6 +1,6 @@
 import { AniNumber, AniPerc } from "../animations/animations";
 import BasecompDb from "./baseCompDb";
-import { DisplayObject,Graphics } from "pixi.js";
+import {Rectangle, DisplayObject,Graphics } from "pixi.js";
 
 /////////////////////////////////////////////
 export default class BaseComp {
@@ -29,7 +29,7 @@ constructor(basecompDb : BasecompDb) {
     this.height = new AniNumber(basecompDb.height);
     this.color = basecompDb.color;
 }
-getComp():DisplayObject{
+getDisplayObject():DisplayObject{
     this.graphics.beginFill(this.color);
     
     this.graphics.drawRect(
@@ -43,7 +43,13 @@ getComp():DisplayObject{
     return this.graphics;
 }
 
-draw(timeMs :number=0){
-    this.graphics.x += 1;
+draw(timeMs :number=0,screen :Rectangle){
+    this.x.update(timeMs);
+    const v = this.x.value();
+    const vv = screen.width/100 * v;
+    console.log("this.x.value()",v,vv);
+    console.log("stage.width/",screen.width);
+    // console.log("vv",vv);
+    this.graphics.x =  vv;
 }
 }

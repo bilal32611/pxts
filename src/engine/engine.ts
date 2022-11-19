@@ -1,16 +1,20 @@
 import { Graphics,DisplayObject } from "pixi.js";
 import App from "../app/app";
-// import IComponent from "../IComonent";
 import BaseComp from "../baseComps/baseComp";
+import IBaseComp from "../baseComps/IBaseComp";
+import StopWatch from "./stopWatch";
 ///////////////////////////////////////////
 export default class Engine {
 //..
 app :App;
+stopWatch:StopWatch;
 //--chagne BaseComp with an interface
-comps : BaseComp[];
-//..
+comps : IBaseComp[];
+
+///////////////////////////
 constructor(width :number=600 , height :number=350, backgroundColor :number=0xd3d3d3){
-//.
+
+this.stopWatch = new StopWatch();        
 this.app = new App(width, height,backgroundColor,true);
 this.comps = [];
 document.body.appendChild(this.app.getView());
@@ -22,12 +26,26 @@ window.onload = async (): Promise<void> => {
 //----------------------------
 }
 
-addComp(comp :DisplayObject){
-this.app.theApp.stage.addChild(comp);
+addComp(comp :IBaseComp){
+this.comps.push(comp);
+const displayObject = comp.getDisplayObject();        
+this.app.theApp.stage.addChild(displayObject);
 }
 
+start(){
+this.stopWatch.start(); 
+this.app.theApp.ticker.add( this.gameLoop.bind(this));
+}
+stop(){
+this.stopWatch.stop(); 
+}
 
-
+private gameLoop(){        
+for (let i = 0; i < this.comps.length; i++) {
+        const comp = this.comps[i];
+        comp.draw(this.stopWatch.getMsDelta(), this.app.theApp.screen);
+}
+}
 ////////////////
 }
 ///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
