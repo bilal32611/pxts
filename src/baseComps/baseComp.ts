@@ -47,8 +47,8 @@ draw(timeMs :number=0,screen :Rectangle){
     this.x.update(timeMs);
     const v = this.x.value();
     const vv = screen.width/100 * v;
-    console.log("this.x.value()",v,vv);
-    console.log("stage.width/",screen.width);
+    // console.log("this.x.value()",v,vv);
+    // console.log("stage.width/",screen.width);
     // console.log("vv",vv);
     this.graphics.x =  vv;
 }

@@ -54,6 +54,7 @@ async function loadGameAssets(): Promise<void> {
 
 function resizeCanvas(): void {
     const resize = () => {
+        // app.renderer.autoDensity = true;
         app.renderer.resize(window.innerWidth, window.innerHeight);
         app.stage.scale.x = window.innerWidth / gameWidth;
         app.stage.scale.y = window.innerHeight / gameHeight;

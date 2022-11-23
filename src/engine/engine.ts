@@ -1,60 +1,68 @@
-import { Graphics,DisplayObject } from "pixi.js";
-import App from "../app/app";
+import { Application , utils } from "pixi.js";
 import BaseComp from "../baseComps/baseComp";
 import IBaseComp from "../baseComps/IBaseComp";
 import StopWatch from "./stopWatch";
+
 ///////////////////////////////////////////
 export default class Engine {
-//..
-app :App;
 stopWatch:StopWatch;
-//--chagne BaseComp with an interface
 comps : IBaseComp[];
+app :Application;
 
 ///////////////////////////
 constructor(width :number=600 , height :number=350, backgroundColor :number=0xd3d3d3){
 
 this.stopWatch = new StopWatch();        
-this.app = new App(width, height,backgroundColor,true);
+utils.skipHello();
+this.app = new Application({ backgroundColor,width: width,
+        height: height});
+this.app.stage.interactive = true
+
 this.comps = [];
-document.body.appendChild(this.app.getView());
+document.body.appendChild( this.app.view );
 //----------------------------
 window.onload = async (): Promise<void> => {
     // await loadGameAssets();
     resizeCanvas(this.app);
 };
 //----------------------------
+// this.app.theApp.renderer.
 }
 
 addComp(comp :IBaseComp){
 this.comps.push(comp);
 const displayObject = comp.getDisplayObject();        
-this.app.theApp.stage.addChild(displayObject);
+this.app.stage.addChild(displayObject);
 }
 
 start(){
 this.stopWatch.start(); 
-this.app.theApp.ticker.add( this.gameLoop.bind(this));
+this.app.ticker.add(    this.gameLoop.bind(this)   );
 }
 stop(){
 this.stopWatch.stop(); 
+this.app.ticker.remove(   this.gameLoop  );
 }
 
 private gameLoop(){        
+const dt = this.stopWatch.getMsDelta();
+// if (dt > 30) {
+//         this.stop();
+// }
 for (let i = 0; i < this.comps.length; i++) {
         const comp = this.comps[i];
-        comp.draw(this.stopWatch.getMsDelta(), this.app.theApp.screen);
+        comp.draw( dt , this.app.screen);
 }
 }
 ////////////////
 }
 ///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-function resizeCanvas(app :App): void {
+function resizeCanvas(app :Application): void {
     const resize = () => {
-    app.theApp.renderer.resize(window.innerWidth, window.innerHeight);
-    app.theApp.stage.scale.x = window.innerWidth / app.theApp.screen.width;
-    app.theApp.stage.scale.y = window.innerHeight / app.theApp.screen.height;
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    app.stage.scale.x = window.innerWidth / app.screen.width;
+    app.stage.scale.y = window.innerHeight / app.screen.height;
     };
     ///////////////
     window.addEventListener("resize", resize);
