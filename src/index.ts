@@ -1,4 +1,4 @@
-import { DisplayObject, Graphics, Loader, Texture, AnimatedSprite, Sprite, utils } from "pixi.js";
+// import { DisplayObject, Graphics, Loader, Texture, AnimatedSprite, Sprite, utils } from "pixi.js";
 import Engine from "./engine/engine";
 import BaseCompDb from "./baseComps/baseCompDb";
 import BaseComp from "./baseComps/baseComp";
@@ -19,7 +19,7 @@ function load() {
         // bcDb.x.set(Math.random() * 300);
         // bcDb.y.set(Math.random() * 400);
         bcDb.y.set(Math.random() * 400);
-        bcDb.x.animate(0, 30, 0, 500);
+        bcDb.x.animate(0, 3, 0, 10);
         //--------------------------    
         const bc = new BaseComp(bcDb);
         engine.addComp(bc);

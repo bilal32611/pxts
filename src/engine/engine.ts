@@ -37,18 +37,20 @@ this.app.stage.addChild(displayObject);
 
 start(){
 this.stopWatch.start(); 
-this.app.ticker.add(    this.gameLoop.bind(this)   );
+this.app.ticker.add(    this.gameLoop, this   );
 }
 stop(){
 this.stopWatch.stop(); 
-this.app.ticker.remove(   this.gameLoop  );
+this.app.ticker.remove(   this.gameLoop , this  );
 }
 
 private gameLoop(){        
 const dt = this.stopWatch.getMsDelta();
-// if (dt > 30) {
-//         this.stop();
-// }
+console.log("dt",dt);
+if (dt > 3000) {
+        this.stop();
+        // debugger;
+}
 for (let i = 0; i < this.comps.length; i++) {
         const comp = this.comps[i];
         comp.draw( dt , this.app.screen);
@@ -56,8 +58,9 @@ for (let i = 0; i < this.comps.length; i++) {
 }
 ////////////////
 }
+
 ///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-///XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 function resizeCanvas(app :Application): void {
     const resize = () => {
     app.renderer.resize(window.innerWidth, window.innerHeight);

@@ -1,4 +1,4 @@
-import {AniNumberDb,AniPercDb,AniBooleanDb, AniColorDb} from "../animations/animations";
+import {AniNumberDb, AniBooleanDb, AniColorDb} from "../animations/animations";
 
 import BaseComp from "./baseComp";
 /////////////////////////////////////////////
@@ -8,7 +8,7 @@ public readonly id :string;
 public  startTime :number;
 public  endTime :number;
     
-public x :AniPercDb; 
+public x :AniNumberDb; 
 public y :AniNumberDb;  
 public width :AniNumberDb; 
 public height :AniNumberDb;  
@@ -21,14 +21,13 @@ this.id = Math.random().toString(36).slice(2);
 this.startTime = startTime;
 this.endTime =   endTime;
 
-this.x = new AniPercDb(0,600);
+this.x = new AniNumberDb(0);
 this.y = new AniNumberDb(0);
 this.width = new AniNumberDb(10);
 this.height = new AniNumberDb(10);
 this.color = 0Xffffff;
-
-
 }
+
 
 init():BaseComp{
 return new BaseComp(this);

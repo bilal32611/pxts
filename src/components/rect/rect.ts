@@ -1,5 +1,5 @@
-import { AniNumber, AniPerc } from "../animations/animations";
-import BasecompDb from "./baseCompDb";
+import { AniNumber, AniPerc } from "../../animations/animations";
+import BasecompDb from "../../baseComps/baseCompDb";
 import { Rectangle, DisplayObject, Graphics } from "pixi.js";
 
 /////////////////////////////////////////////

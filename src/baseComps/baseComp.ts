@@ -15,6 +15,7 @@ export default class BaseComp {
     public width: AniNumber;
     public height: AniNumber;
     public color: number;
+    
 /////////////////////////////////////////
 constructor(basecompDb : BasecompDb) {
     this.graphics = new Graphics();
@@ -29,6 +30,7 @@ constructor(basecompDb : BasecompDb) {
     this.height = new AniNumber(basecompDb.height);
     this.color = basecompDb.color;
 }
+
 getDisplayObject():DisplayObject{
     this.graphics.beginFill(this.color);
     
